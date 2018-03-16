@@ -3,6 +3,8 @@ struct Texture {
 	GLuint id;
 };
 
+Texture font_tex;
+
 void drawRect(float x, float y, float width, float height) {
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex2f(x - width / 2, y - height / 2);
@@ -61,6 +63,7 @@ draw_text(Texture font, float x, float y,
 	}
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_TEXTURE_2D);
 }
 
 static void

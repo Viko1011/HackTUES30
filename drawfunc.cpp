@@ -70,6 +70,7 @@ static void
 draw_text_centered(Texture font, float x, float y,
 	const char *text, int scale = 1)
 {
+	return;
 	float line_height = 10.0f / (WINDOW_HEIGHT / 2) * scale;
 	const char *line = text;
 
@@ -119,7 +120,8 @@ load_font(const char *filepath, int w, int h)
 	return texture;
 }
 
-void drawImage(float x, float y, float width, float height) {
+void drawImage(Texture tex, float x, float y, float width, float height) {
+	glBindTexture(GL_TEXTURE_2D, tex.id);
 	glEnable(GL_TEXTURE_2D);
 	glBegin(GL_TRIANGLE_STRIP);
 	glTexCoord2f(0, 1);

@@ -3,7 +3,7 @@ struct Button {
 	const char *text;
 };
 
-void UpdateButton(Button* button, float mousePos_x, float mousePos_y) {
+bool UpdateButton(Button* button, float mousePos_x, float mousePos_y, bool mousePressed) {
 
 
 	if (mousePos_x > button->x - button->width / 2 &&
@@ -15,7 +15,9 @@ void UpdateButton(Button* button, float mousePos_x, float mousePos_y) {
 		glDisable(GL_TEXTURE_2D);
 		drawRect(button->x, button->y, button->width, button->height);
 		draw_text(font_tex, button->x, button->y, button->text);
-
+		if (mousePressed == true) {
+			return true;
+		}
 	}
 	else
 	{
@@ -23,4 +25,6 @@ void UpdateButton(Button* button, float mousePos_x, float mousePos_y) {
 		drawRect(button->x, button->y, button->width, button->height);
 		draw_text(font_tex, button->x, button->y, button->text);
 	}
+
+	return false;
 }

@@ -13,9 +13,11 @@ struct Texture {
 	GLuint id;
 };
 
+Texture font_tex;
+
 struct Button {
-	int width, height;
-	float x, y;
+	float x, y, width, height;
+	const char *text;
 };
 
 void drawRect(float x, float y, float width, float height) {
@@ -166,7 +168,24 @@ load_image(const char *filepath)
 
 	return texture;
 }
+void UpdateButton(Button* button , float mousePos_x, float mousePos_y) {
+	if (mousePos_x > button->x - button->width / 2 &&
+		mousePos_x < button->x + button->width / 2 &&
+		mousePos_y > button->y - button->height / 2 &&
+		mousePos_y < button->y + button->height / 2) {
+		printf("button: %s\n", button->text);
+		glColor3f(0.75, 0.45, 1);
+		drawRect(button->x, button->y, button->width, button->height);
+		draw_text(font_tex, button->x, button->y, button->text);
 
+	}
+	else
+	{
+		glColor3f(0.80, 0.66, 0.9);
+		drawRect(button->x, button->y, button->width, button->height);
+		draw_text(font_tex, button->x, button->y, button->text);
+	}
+}
 int main (int argc, char *argv[])
 {
   SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO);
@@ -179,56 +198,58 @@ int main (int argc, char *argv[])
   glEnable (GL_BLEND);
   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-  Texture font_tex = load_font("font.data", 570, 10);
-  Texture crep = load_image("creepy.png");
+  font_tex = load_font("font.data", 570, 10);
   glClearColor (0, 0, 0, 1.0);
   int Budget = 100000;
   int Day = 17;
   int Year = 2018;
   int Month = 03;
-  if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0)
-    {
-      printf("Error initializing SDL_mixer: %s\n", Mix_GetError());
-      exit(1);
-    }
   
+  Button floor1Button = { 0.69, 0.90, 0.5, 0.09, "Floor: 1" };
+  Button floor2Button = { 0.69, 0.80, 0.5, 0.09, "Floor: 2" };
+  Button floor3Button = { 0.69, 0.70, 0.5, 0.09, "Floor: 3" };
+  Button floorAddButton = { 0.69, 0.60, 0.5, 0.09, "Add Floor" };
 
-  int keeprunning = 1;
+	int keeprunning = 1;
+  float mousePos_y;
+  float mousePos_x;
   //Uint32 last_time = SDL_GetTicks();
 
   while (keeprunning)
     {
       SDL_Event event;
-      while (SDL_PollEvent (&event))
-	{
-	  if(event.type == SDL_QUIT)
-	    {	     
-	      keeprunning = 0;
-	    }
-	  else if(event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
-	    {
-	      //int pressed = event.type == SDL_KEYDOWN;
-	     
-
-		  if (event.key.keysym.sym == SDLK_ESCAPE)
+	  while (SDL_PollEvent(&event))
+	  {
+		  if (event.type == SDL_QUIT)
 		  {
 			  keeprunning = 0;
 		  }
+		  else if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
+		  {
+			  //int pressed = event.type == SDL_KEYDOWN;
+
+
+			  if (event.key.keysym.sym == SDLK_ESCAPE)
+			  {
+				  keeprunning = 0;
+			  }
+		  }
+		  else if (event.type == SDL_MOUSEMOTION)
+		  {
+			  mousePos_x = (float)event.motion.x * 2 / WINDOW_WIDTH - 1;
+			  mousePos_y = (float)event.motion.y * 2 / -WINDOW_HEIGHT + 1;
+		  }
+
 	  }
-	      
-	}
 
       //Uint32 current_time = SDL_GetTicks();
       //float dt = (current_time - last_time) / 1000.0;
       //last_time = current_time;
-     
-	  glColor3f(0.5, 0.35, 0.4);
-	  drawRect(0.69, 0.90, 0.5, 0.09);
-	  glColor3f(0.5, 0.35, 0.4);
-	  drawRect(0.69, 0.80, 0.5, 0.09);
-	  glColor3f(0.5, 0.35, 0.4);
-	  drawRect(0.69, 0.70, 0.5, 0.09);
+	  printf("%.2f\n", mousePos_x);
+	  printf("%.2f\n", mousePos_y);
+
 	  glColor3f(1, 1, 1);
+
 	  //drawImage(0, 0, 1, 1); //(float x, float y, float width, float height)
 	  draw_text(font_tex, -0.95, 0.95, "Alpha Release :DD");
 
@@ -249,9 +270,12 @@ int main (int argc, char *argv[])
 	  sprintf(day_text, "Day: %d", Day);
 	  draw_text(font_tex, -0.95, 0.75, day_text);
 
+	  UpdateButton(&floor1Button, mousePos_x , mousePos_y);
+	  UpdateButton(&floor2Button, mousePos_x, mousePos_y);
+	  UpdateButton(&floor3Button, mousePos_x, mousePos_y);
+	  UpdateButton(&floorAddButton, mousePos_x, mousePos_y);
+
 	  SDL_GL_SwapWindow(window);
   }
-
-
     return 0;
 }

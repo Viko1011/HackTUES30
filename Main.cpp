@@ -24,14 +24,18 @@ int main (int argc, char *argv[])
   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
   Texture font_tex = load_font("font.data", 570, 10);
-  //Texture crep = load_image("creepy.png");
+  //  Texture crep = load_image("creepy.png");
   glClearColor (0, 0, 0, 1.0);
-
+  // int Budget;
+  // int Day;
+  // int Year;
+  // int Month;
   if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0)
     {
       printf("Error initializing SDL_mixer: %s\n", Mix_GetError());
       exit(1);
-    }  
+    }
+  
 
   int keeprunning = 1;
   //Uint32 last_time = SDL_GetTicks();
@@ -57,22 +61,53 @@ int main (int argc, char *argv[])
 	  }
 	      
 	}
+
       //Uint32 current_time = SDL_GetTicks();
       //float dt = (current_time - last_time) / 1000.0;
       //last_time = current_time;
-
-	  glClear(GL_COLOR_BUFFER_BIT);
+     
+          glColor3f(0.3, 0.3, 0.2);
+          drawRect(-0.36, -0.36, 0.6, 0.6);
+          glColor3f(0.8, 0.8, 0.8);
+	  drawRect(-0.36, -0.36, 0.58,0.58);
+	  glColor3f(0.3, 0.3, 0.2);
+          drawRect(0.36, 0.36, 0.6, 0.6);
+          glColor3f(0.8, 0.8, 0.8);
+	  drawRect(0.36, 0.36, 0.58, 0.58);
+	  glColor3f(0.3, 0.3, 0.2);
+          drawRect(0.36, -0.36, 0.6, 0.6);
+	  glColor3f(0.8, 0.8, 0.8);
+	  drawRect(0.36, -0.36, 0.58, 0.58);
+	  glColor3f(0.3, 0.3, 0.2);
+          drawRect(-0.36, 0.36, 0.6, 0.6);
+	  glColor3f(0.8, 0.8, 0.8);
+	  drawRect(-0.36, 0.36, 0.58, 0.58);
+	  glColor3f(0.3, 0.3, 0.2);
+	  drawRect(0, 0, 1.32, 0.12);
+	  glColor3f(0.3,0.2,0.3);
+	  drawRect(0, 0, 0.12, 1.32);
+	
+	 
 	  
-	  //glColor3f(1, 1, 1);
-	  //drawRect(0, 0, 0.5, 0.5);
-	  glColor3f(0, 1, 0);
-	  drawOutline(0, 0, 1, 0, 0.01);
-	  drawOutline(0, 1, 0.5, 0.5, 0.01);
-	  drawOutline(1, 0, 0.5, 0.5, 0.01);
-	  drawOutline(1, 1, 0.5, 0.5, 0.01);
+      // 	  glColor3f(1, 1, 1);
+      // 	  //drawImage(0, 0, 1, 1);
+       	  draw_text(font_tex, -1.0, 1.0, "release-1.1");
 
-	  SDL_GL_SwapWindow(window);
 
+      // 	  char budget_text[64];
+      // 	  sprintf(budget_text, "Budget: %d", Budget);
+      // 	  draw_text(font_tex, -1.0, 0.95, budget_text);
+
+      // 	  char day_text[31];
+      // 	  sprintf(day_text, "Day: %d", Day);
+      // 	  draw_text(font_tex, -1.0, 0.90, day_text);
+
+
+
+
+
+	  
+      	  SDL_GL_SwapWindow(window);
     }
 
     return 0;

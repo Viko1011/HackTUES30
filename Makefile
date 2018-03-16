@@ -1,6 +1,6 @@
 PACKAGES = sdl2 SDL2_mixer SDL2_image
 LDLIBS = -lm
-CFLAGS = -Wall
+CFLAGS = -Wall -Wno-unused-function
 
 ifeq ($(OS), Windows_NT)
    LDLIBS += -lopengl32 -mwindows

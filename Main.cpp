@@ -13,11 +13,6 @@ struct Texture {
 	GLuint id;
 };
 
-struct Button {
-	int width, height;
-	float x, y;
-};
-
 void drawRect(float x, float y, float width, float height) {
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex2f(x - width / 2, y - height / 2);
@@ -180,12 +175,12 @@ int main (int argc, char *argv[])
   glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
   Texture font_tex = load_font("font.data", 570, 10);
-  Texture crep = load_image("creepy.png");
+  //  Texture crep = load_image("creepy.png");
   glClearColor (0, 0, 0, 1.0);
-  int Budget = 100000;
-  int Day = 17;
-  int Year = 2018;
-  int Month = 03;
+  // int Budget;
+  // int Day;
+  // int Year;
+  // int Month;
   if (Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024) < 0)
     {
       printf("Error initializing SDL_mixer: %s\n", Mix_GetError());
@@ -222,36 +217,49 @@ int main (int argc, char *argv[])
       //float dt = (current_time - last_time) / 1000.0;
       //last_time = current_time;
      
-	  glColor3f(0.5, 0.35, 0.4);
-	  drawRect(0.69, 0.90, 0.5, 0.09);
-	  glColor3f(0.5, 0.35, 0.4);
-	  drawRect(0.69, 0.80, 0.5, 0.09);
-	  glColor3f(0.5, 0.35, 0.4);
-	  drawRect(0.69, 0.70, 0.5, 0.09);
-	  glColor3f(1, 1, 1);
-	  //drawImage(0, 0, 1, 1); //(float x, float y, float width, float height)
-	  draw_text(font_tex, -0.95, 0.95, "Alpha Release :DD");
+          glColor3f(0.3, 0.3, 0.2);
+          drawRect(-0.36, -0.36, 0.6, 0.6);
+          glColor3f(0.8, 0.8, 0.8);
+	  drawRect(-0.36, -0.36, 0.58,0.58);
+	  glColor3f(0.3, 0.3, 0.2);
+          drawRect(0.36, 0.36, 0.6, 0.6);
+          glColor3f(0.8, 0.8, 0.8);
+	  drawRect(0.36, 0.36, 0.58, 0.58);
+	  glColor3f(0.3, 0.3, 0.2);
+          drawRect(0.36, -0.36, 0.6, 0.6);
+	  glColor3f(0.8, 0.8, 0.8);
+	  drawRect(0.36, -0.36, 0.58, 0.58);
+	  glColor3f(0.3, 0.3, 0.2);
+          drawRect(-0.36, 0.36, 0.6, 0.6);
+	  glColor3f(0.8, 0.8, 0.8);
+	  drawRect(-0.36, 0.36, 0.58, 0.58);
+	  glColor3f(0.3, 0.3, 0.2);
+	  drawRect(0, 0, 1.32, 0.12);
+	  glColor3f(0.3,0.2,0.3);
+	  drawRect(0, 0, 0.12, 1.32);
+	
+	 
+	  
+      // 	  glColor3f(1, 1, 1);
+      // 	  //drawImage(0, 0, 1, 1);
+       	  draw_text(font_tex, -1.0, 1.0, "release-1.1");
 
 
-	  char budget_text[64];
-	  sprintf(budget_text, "Budget: %d", Budget);
-	  draw_text(font_tex, -0.95, 0.90, budget_text);
+      // 	  char budget_text[64];
+      // 	  sprintf(budget_text, "Budget: %d", Budget);
+      // 	  draw_text(font_tex, -1.0, 0.95, budget_text);
 
-	  char year_text[64];
-	  sprintf(year_text, "Year: %d", Year);
-	  draw_text(font_tex, -0.95, 0.85, year_text);
+      // 	  char day_text[31];
+      // 	  sprintf(day_text, "Day: %d", Day);
+      // 	  draw_text(font_tex, -1.0, 0.90, day_text);
 
-	  char month_text[64];
-	  sprintf(month_text, "Month: %d", Month);
-	  draw_text(font_tex, -0.95, 0.80, month_text);
-		
-	  char day_text[64];
-	  sprintf(day_text, "Day: %d", Day);
-	  draw_text(font_tex, -0.95, 0.75, day_text);
 
-	  SDL_GL_SwapWindow(window);
-  }
 
+
+
+	  
+      	  SDL_GL_SwapWindow(window);
+    }
 
     return 0;
 }

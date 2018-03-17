@@ -5,6 +5,7 @@ struct Texture {
 
 Texture font_tex;
 
+
 void drawRect(float x, float y, float width, float height) {
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex2f(x - width / 2, y - height / 2);
@@ -162,11 +163,8 @@ load_image(const char *filepath)
 	return texture;
 }
 
-int Year = 1, Day = 1, Month = 1, Hours = 0, DayMax;
-
 void saveText(float Budget, float time)
 {
-	time *= 20500;
 	glColor4f(0, 0, 0, 0.2);
 	drawRect(-0.95, 0.95, 0.45, 0.65);
 	int Minutes = time;
@@ -253,3 +251,4 @@ void saveText(float Budget, float time)
 	sprintf(hours_text, "Hours: %d", Hours);
 	draw_text(font_tex, -0.95, 0.75, hours_text);
 }
+

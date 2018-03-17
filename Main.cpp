@@ -14,8 +14,8 @@
 
 
 enum GameMode {
-	GAMEMODE_OFFICE,
-	GAMEMODE_FLOOR,
+  GAMEMODE_OFFICE,
+  GAMEMODE_FLOOR,
 };
 
 
@@ -38,9 +38,6 @@ int main (int argc, char *argv[])
   glClearColor (0, 0, 0, 1.0);
 
   int Budget = 100000;
-  int Day = 17;
-  int Year = 2018;
-  int Month = 3;
 
   GameMode gameMode = GAMEMODE_OFFICE;
   float mousePos_x = 0;
@@ -61,176 +58,121 @@ int main (int argc, char *argv[])
     }
 
   int keeprunning = 1;
-  //Uint32 last_time = SDL_GetTicks();
+  Uint32 last_time = SDL_GetTicks();
+  float time=0;
 
   while (keeprunning)
-  {
-	  SDL_Event event;
-	  while (SDL_PollEvent(&event))
-	  {
-		  if (event.type == SDL_QUIT)
-		  {
-			  keeprunning = 0;
-		  }
-		  else if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
-		  {
-			  //int pressed = event.type == SDL_KEYDOWN;
+    {
+      SDL_Event event;
+      while (SDL_PollEvent(&event))
+	{
+	  if (event.type == SDL_QUIT)
+	    {
+	      keeprunning = 0;
+	    }
+	  else if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP)
+	    {
+	      //int pressed = event.type == SDL_KEYDOWN;
 
 
-			  if (event.key.keysym.sym == SDLK_ESCAPE)
-			  {
-				  keeprunning = 0;
-			  }
-		  }
-		  else if (event.type == SDL_MOUSEMOTION)
-		  {
-			  mousePos_x = (float)event.motion.x * 2 / WINDOW_WIDTH - 1;
-			  mousePos_y = (float)event.motion.y * 2 / -WINDOW_HEIGHT + 1;
-		  }
-		  else if (event.type == SDL_MOUSEBUTTONDOWN) {
-			  mousePressed = true;
-		  }
-		  else if (event.type == SDL_MOUSEBUTTONUP){
-			  mousePressed = false;
-		  }
+	      if (event.key.keysym.sym == SDLK_ESCAPE)
+		{
+		  keeprunning = 0;
+		}
+	    }
+	  else if (event.type == SDL_MOUSEMOTION)
+	    {
+	      mousePos_x = (float)event.motion.x * 2 / WINDOW_WIDTH - 1;
+	      mousePos_y = (float)event.motion.y * 2 / -WINDOW_HEIGHT + 1;
+	    }
+	  else if (event.type == SDL_MOUSEBUTTONDOWN) {
+	    mousePressed = true;
 	  }
-
-	  //Uint32 current_time = SDL_GetTicks();
-	  //float dt = (current_time - last_time) / 1000.0;
-	  //last_time = current_time;
-
-	  switch (gameMode)
-	  {
-	      case GAMEMODE_OFFICE:
-		  {
-			  glColor3f(1, 1, 1);
-			  drawImage(background_tex, 0, 0, 2, 2);
-
-			  
-			  saveText ( Budget,  Year, Month, Day);
-			  
-
-			  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
-			  {
-				  gameMode = GAMEMODE_OFFICE;
-				  
-			  }
-			  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
-			  {
-				  floorNumber = 1;
-				  gameMode = GAMEMODE_FLOOR;
-				  saveText ( Budget,  Year, Month, Day);
-			  }
-			  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
-			  {
-				  floorNumber = 2;
-				  gameMode = GAMEMODE_FLOOR;
-				  saveText ( Budget,  Year, Month, Day);
-				  
-			  }
-			  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
-			  {
-				  floorNumber = 3;
-				  gameMode = GAMEMODE_FLOOR;
-				  saveText (Budget, Year, Month, Day);
-			  }
-			  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
-		  } break;
-		  case GAMEMODE_FLOOR:
-		  {
-			  switch (floorNumber)
-			  {
-			      case 1:
-				  {
-					  glClearColor(0, 0, 0, 1);
-					  glClear(GL_COLOR_BUFFER_BIT);
-					  drawImage(firstfloor_tex, 0, 0, 2, 2);
-					  saveText ( Budget,  Year, Month, Day);
-					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  gameMode = GAMEMODE_OFFICE;
-					  }
-					  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 1;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 2;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 3;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
-				  }break;
-				  case 2:
-				  {
-					  glClearColor(0, 0, 0, 1);
-					  glClear(GL_COLOR_BUFFER_BIT);
-					  draw_text(font_tex, 0, 0, "Second");
-					  saveText ( Budget,  Year, Month, Day);
-					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  gameMode = GAMEMODE_OFFICE;
-					  }
-					  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 1;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 2;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 3;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
-				  }break;
-				  case 3:
-				  {
-					  glClearColor(0, 0, 0, 1);
-					  glClear(GL_COLOR_BUFFER_BIT);
-					  draw_text(font_tex, 0, 0, "Third");
-					  saveText ( Budget,  Year, Month, Day);
-					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  gameMode = GAMEMODE_OFFICE;
-					  }
-					  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 1;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 2;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
-					  {
-						  floorNumber = 3;
-						  gameMode = GAMEMODE_FLOOR;
-					  }
-					  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
-				  }break;
-			  }
-			  
-			  
-		  } break;
+	  else if (event.type == SDL_MOUSEBUTTONUP){
+	    mousePressed = false;
 	  }
+	}
 
+      Uint32 current_time = SDL_GetTicks();
+      float dt = (current_time - last_time) / 1000.0;
+      last_time = current_time;
+      time+=dt;
 
+      switch (gameMode)
+	{
+	case GAMEMODE_OFFICE:
+	  {
+	    glColor3f(1, 1, 1);
+	    drawImage(background_tex, 0, 0, 2, 2);
+	    saveText ( Budget, time);
+			  
+	    if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
+	      {
+		gameMode = GAMEMODE_OFFICE;
+				  
+	      }
+	    if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
+	      {
+		floorNumber = 1;
+		gameMode = GAMEMODE_FLOOR;
+	      }
+	    if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
+	      {
+		floorNumber = 2;
+		gameMode = GAMEMODE_FLOOR;
+	      }
+	    if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
+	      {
+		floorNumber = 3;
+		gameMode = GAMEMODE_FLOOR;
+	      }
+	    UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
+	  } break;
 
-	  SDL_GL_SwapWindow(window);
-  }
+	case GAMEMODE_FLOOR:
+	  {
+	    glClearColor(0, 0, 0, 1);
+	    glClear(GL_COLOR_BUFFER_BIT);
+	    saveText ( Budget, time);
+
+	    switch (floorNumber)
+	      {
+	      case 1:
+		draw_text(font_tex, 0, 0, "First");
+		break;
+	      case 2:
+		draw_text(font_tex, 0, 0, "Second");
+		break;
+	      case 3:
+		draw_text(font_tex, 0, 0, "Third");
+		break;
+	      }
+
+	    if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
+	      {
+		gameMode = GAMEMODE_OFFICE;
+	      }
+	    if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
+	      {
+		floorNumber = 1;
+		gameMode = GAMEMODE_FLOOR;
+	      }
+	    if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
+	      {
+		floorNumber = 2;
+		gameMode = GAMEMODE_FLOOR;
+	      }
+	    if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
+	      {
+		floorNumber = 3;
+		gameMode = GAMEMODE_FLOOR;
+	      }
+
+	  } break;
+	}
+
+      SDL_GL_SwapWindow(window);
+    }
 
   return 0;
 }

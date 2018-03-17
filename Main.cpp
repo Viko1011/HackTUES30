@@ -106,41 +106,33 @@ int main (int argc, char *argv[])
 			  glColor3f(1, 1, 1);
 			  drawImage(background_tex, 0, 0, 2, 2);
 
-			  glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			  char budget_text[64];
-			  sprintf(budget_text, "Budget: %d", Budget);
-			  draw_text(font_tex, -0.95, 0.95, budget_text);
-
-			  char year_text[64];
-			  sprintf(year_text, "Year: %d", Year);
-			  draw_text(font_tex, -0.95, 0.90, year_text);
-
-			  char month_text[64];
-			  sprintf(month_text, "Month: %d", Month);
-			  draw_text(font_tex, -0.95, 0.85, month_text);
-
-			  char day_text[64];
-			  sprintf(day_text, "Day: %d", Day);
-			  draw_text(font_tex, -0.95, 0.80, day_text);
+			  
+			  saveText ( Budget,  Year, Month, Day);
+			  
 
 			  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
 			  {
 				  gameMode = GAMEMODE_OFFICE;
+				  
 			  }
 			  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
 			  {
 				  floorNumber = 1;
 				  gameMode = GAMEMODE_FLOOR;
+				  saveText ( Budget,  Year, Month, Day);
 			  }
 			  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
 			  {
 				  floorNumber = 2;
 				  gameMode = GAMEMODE_FLOOR;
+				  saveText ( Budget,  Year, Month, Day);
+				  
 			  }
 			  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
 			  {
 				  floorNumber = 3;
 				  gameMode = GAMEMODE_FLOOR;
+				  saveText (Budget, Year, Month, Day);
 			  }
 			  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
 		  } break;
@@ -153,6 +145,7 @@ int main (int argc, char *argv[])
 					  glClearColor(0, 0, 0, 1);
 					  glClear(GL_COLOR_BUFFER_BIT);
 					  drawImage(firstfloor_tex, 0, 0, 2, 2);
+					  saveText ( Budget,  Year, Month, Day);
 					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  gameMode = GAMEMODE_OFFICE;
@@ -179,6 +172,7 @@ int main (int argc, char *argv[])
 					  glClearColor(0, 0, 0, 1);
 					  glClear(GL_COLOR_BUFFER_BIT);
 					  draw_text(font_tex, 0, 0, "Second");
+					  saveText ( Budget,  Year, Month, Day);
 					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  gameMode = GAMEMODE_OFFICE;
@@ -205,6 +199,7 @@ int main (int argc, char *argv[])
 					  glClearColor(0, 0, 0, 1);
 					  glClear(GL_COLOR_BUFFER_BIT);
 					  draw_text(font_tex, 0, 0, "Third");
+					  saveText ( Budget,  Year, Month, Day);
 					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  gameMode = GAMEMODE_OFFICE;

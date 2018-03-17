@@ -5,6 +5,7 @@ struct Texture {
 
 Texture font_tex;
 
+
 void drawRect(float x, float y, float width, float height) {
 	glBegin(GL_TRIANGLE_STRIP);
 	glVertex2f(x - width / 2, y - height / 2);
@@ -160,4 +161,22 @@ load_image(const char *filepath)
 		GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
 
 	return texture;
+}
+void saveText (int Budget, int Year, int Month, int Day)
+{
+         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	 char budget_text[64];
+	 sprintf(budget_text, "Budget: %d", Budget);
+	 draw_text(font_tex, -0.95, 0.95, budget_text);
+	 char year_text[64];
+	 sprintf(year_text, "Year: %d", Year);
+	 draw_text(font_tex, -0.95, 0.90, year_text);
+
+	 char month_text[64];
+	 sprintf(month_text, "Month: %d", Month);
+	 draw_text(font_tex, -0.95, 0.85, month_text);
+
+	 char day_text[64];
+	 sprintf(day_text, "Day: %d", Day);
+	 draw_text(font_tex, -0.95, 0.80, day_text);
 }

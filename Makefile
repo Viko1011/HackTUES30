@@ -11,5 +11,5 @@ endif
 CFLAGS += $(shell pkg-config --cflags $(PACKAGES))
 LDLIBS += $(shell pkg-config --libs $(PACKAGES))
 
-bin/TuesTycoon: Main.cpp drawfunc.cpp gui.cpp
+TuesTycoon: Main.cpp drawfunc.cpp gui.cpp
 	g++ $(CFLAGS) -o $@ $< $(LDLIBS)

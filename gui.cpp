@@ -1,3 +1,4 @@
+
 struct Button {
 	float x, y, width, height;
 	const char *text;

@@ -20,7 +20,7 @@ draw_text(Texture font, float x, float y,
 {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, font.id);
-	glColor4f(1, 1, 1, 1);
+	glColor3f(1, 1, 1);
 
 	glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);
 
@@ -160,4 +160,96 @@ load_image(const char *filepath)
 		GL_RGBA, GL_UNSIGNED_BYTE, image->pixels);
 
 	return texture;
+}
+
+int Year = 1, Day = 1, Month = 1, Hours = 0, DayMax;
+
+void saveText(float Budget, float time)
+{
+	time *= 20500;
+	glColor4f(0, 0, 0, 0.2);
+	drawRect(-0.95, 0.95, 0.45, 0.65);
+	int Minutes = time;
+	int Hours = Minutes / 60;
+	int Days = Hours / 24;
+	int Year = Days / 365 + 1988;
+	int Month;
+	Days %= 365;
+	Days += 1;
+	Minutes %= 60;
+	Hours %= 24;
+	int Day;
+	
+	if (Days <= 31) {
+		Month = 1;
+		Day = Days;
+	}
+	else if (Days <= 31 + 28) {
+		Month = 2;
+		Day = Days - 31;
+	}
+	else if (Days <= 31 + 28 + 31) {
+		Month = 3;
+		Day = Days - (31 + 28);
+	}
+	else if (Days <= 31 + 28 + 31 + 30) {
+		Month = 4;
+		Day = Days - (31 + 28 +31);
+	}
+	else if (Days <= 31 + 28 + 31 + 30 + 31) {
+		Month = 5;
+		Day = Days - (31 + 28 +31 + 30);
+	}
+	else if (Days <= 31 + 28 + 31 + 30 + 31 + 30) {
+		Month = 6;
+		Day = Days - (31 + 28 + 31 + 30 + 31);
+	}
+	else if (Days <= 31 + 28 + 31 + 30 + 31 + 30 + 31) {
+		Month = 7;
+		Day = Days - (31 + 28 + 31 + 30 + 31 + 30);
+	}
+	else if (Days <= 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31) {
+		Month = 8;
+		Day = Days - (31 + 28 + 31 + 30 + 31 + 30 +31);
+	}
+	else if (Days <= 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30) {
+		Month = 9;
+		Day = Days - (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31);
+	}
+	else if (Days <= 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 31 + 30) {
+		Month = 10;
+		Day = Days - (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 31);
+	}
+	else if (Days <= 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30) {
+		Month = 11;
+		Day = Days - (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31);
+	}
+	else if (Days <= 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31) {
+		Month = 12;
+		Day = Days - (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30);
+	}
+
+	char budget_text[64];
+	sprintf(budget_text, "Budget: %.2f", Budget);
+	draw_text(font_tex, -0.95, 0.95, budget_text);
+
+	char year_text[64];
+	sprintf(year_text, "Year: %d", Year);
+	draw_text(font_tex, -0.95, 0.90, year_text);
+
+	char month_text[64];
+	sprintf(month_text, "Month: %d", Month);
+	draw_text(font_tex, -0.95, 0.85, month_text);
+
+	char day_text[64];
+	sprintf(day_text, "Day: %d", Day);
+	draw_text(font_tex, -0.95, 0.80, day_text);
+
+	char min_text[64];
+	sprintf(min_text, "Minutes: %d", Minutes);
+	draw_text(font_tex, -0.95, 0.70, min_text);
+
+	char hours_text[64];
+	sprintf(hours_text, "Hours: %d", Hours);
+	draw_text(font_tex, -0.95, 0.75, hours_text);
 }

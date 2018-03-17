@@ -12,6 +12,7 @@
 #include "drawfunc.cpp"
 #include "gui.cpp"
 
+float Budget = 5000;
 
 enum GameMode {
 	GAMEMODE_OFFICE,
@@ -37,11 +38,6 @@ int main (int argc, char *argv[])
   Texture firstfloor_tex = load_image("hakaton.png");
   glClearColor (0, 0, 0, 1.0);
 
-  int Budget = 100000;
-  int Day = 17;
-  int Year = 2018;
-  int Month = 3;
-
   GameMode gameMode = GAMEMODE_OFFICE;
   float mousePos_x = 0;
   float mousePos_y = 0;
@@ -61,7 +57,8 @@ int main (int argc, char *argv[])
     }
 
   int keeprunning = 1;
-  //Uint32 last_time = SDL_GetTicks();
+  Uint32 last_time = SDL_GetTicks();
+  float time = 0;
 
   while (keeprunning)
   {
@@ -95,9 +92,11 @@ int main (int argc, char *argv[])
 		  }
 	  }
 
-	  //Uint32 current_time = SDL_GetTicks();
-	  //float dt = (current_time - last_time) / 1000.0;
-	  //last_time = current_time;
+	  Uint32 current_time = SDL_GetTicks();
+	  float dt = (current_time - last_time) / 1000.0;
+	  last_time = current_time;
+	  time += dt;
+	  printf("%f\n", time);
 
 	  switch (gameMode)
 	  {
@@ -105,42 +104,32 @@ int main (int argc, char *argv[])
 		  {
 			  glColor3f(1, 1, 1);
 			  drawImage(background_tex, 0, 0, 2, 2);
-
-			  glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-			  char budget_text[64];
-			  sprintf(budget_text, "Budget: %d", Budget);
-			  draw_text(font_tex, -0.95, 0.95, budget_text);
-
-			  char year_text[64];
-			  sprintf(year_text, "Year: %d", Year);
-			  draw_text(font_tex, -0.95, 0.90, year_text);
-
-			  char month_text[64];
-			  sprintf(month_text, "Month: %d", Month);
-			  draw_text(font_tex, -0.95, 0.85, month_text);
-
-			  char day_text[64];
-			  sprintf(day_text, "Day: %d", Day);
-			  draw_text(font_tex, -0.95, 0.80, day_text);
-
+			  saveText(Budget, time);
+			  
+			  
 			  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
 			  {
 				  gameMode = GAMEMODE_OFFICE;
+				  saveText(Budget, time);
 			  }
 			  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
 			  {
 				  floorNumber = 1;
 				  gameMode = GAMEMODE_FLOOR;
+				  saveText(Budget, time);
+				  
 			  }
 			  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
 			  {
 				  floorNumber = 2;
 				  gameMode = GAMEMODE_FLOOR;
+				  saveText(Budget, time);
 			  }
 			  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
 			  {
 				  floorNumber = 3;
 				  gameMode = GAMEMODE_FLOOR;
+				  saveText(Budget, time);
 			  }
 			  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
 		  } break;
@@ -153,24 +142,29 @@ int main (int argc, char *argv[])
 					  glClearColor(0, 0, 0, 1);
 					  glClear(GL_COLOR_BUFFER_BIT);
 					  drawImage(firstfloor_tex, 0, 0, 2, 2);
+					  saveText(Budget, time);
 					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  gameMode = GAMEMODE_OFFICE;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 1;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 2;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 3;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
 				  }break;
@@ -179,24 +173,29 @@ int main (int argc, char *argv[])
 					  glClearColor(0, 0, 0, 1);
 					  glClear(GL_COLOR_BUFFER_BIT);
 					  draw_text(font_tex, 0, 0, "Second");
+					  saveText(Budget, time);
 					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  gameMode = GAMEMODE_OFFICE;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 1;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 2;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 3;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
 				  }break;
@@ -205,24 +204,29 @@ int main (int argc, char *argv[])
 					  glClearColor(0, 0, 0, 1);
 					  glClear(GL_COLOR_BUFFER_BIT);
 					  draw_text(font_tex, 0, 0, "Third");
+					  saveText(Budget, time);
 					  if (UpdateButton(&principleOffice, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  gameMode = GAMEMODE_OFFICE;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor1Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 1;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor2Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 2;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  if (UpdateButton(&floor3Button, mousePos_x, mousePos_y, mousePressed))
 					  {
 						  floorNumber = 3;
 						  gameMode = GAMEMODE_FLOOR;
+						  saveText(Budget, time);
 					  }
 					  UpdateButton(&floorAddButton, mousePos_x, mousePos_y, mousePressed);
 				  }break;
